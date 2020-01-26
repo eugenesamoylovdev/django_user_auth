@@ -1,0 +1,22 @@
+{% extends "layout/basic.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+  {% if user.is_authenticated  %}
+    <h1>Hello {{ user.username }}</h1>
+    <a href="{% url 'accounts:logout' %}">Exit</a>
+  {% else %}
+    <h1>Please sign in</h1> <br>
+    <form method="POST">
+        {% csrf_token %}
+        
+        {% bootstrap_form form layout='inline'%}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% buttons submit='Sign in' %} {% endbuttons %}
+        
+    </form>
+    
+  {% endif %}
+
+{% endblock %}

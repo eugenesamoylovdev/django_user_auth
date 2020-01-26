@@ -1,0 +1,9 @@
+{% extends "layout/basic.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+    <h1>Hello {{ user.username }}</h1>
+    <a href="{% url 'accounts:logout' %}">Exit</a>
+
+{% endblock %}

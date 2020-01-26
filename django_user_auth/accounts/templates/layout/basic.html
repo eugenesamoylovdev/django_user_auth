@@ -1,0 +1,23 @@
+{% load bootstrap4 %}
+{% load static %}
+
+<!doctype html>
+<html class="no-js" lang="">
+
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% bootstrap_css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/main.css' %}">
+        {% bootstrap_javascript jquery='slim' %}
+    </head>
+
+    <body class="container-fluid">
+   
+        {% block content %}
+        {% endblock %}
+
+    </body>
+
+</html>

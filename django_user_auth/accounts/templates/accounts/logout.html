@@ -1,0 +1,7 @@
+{% extends "layout/basic.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <h1>You successfully exit</h1>
+    <a href="{% url 'accounts:login' %}">Sign in</a>
+{% endblock %}
