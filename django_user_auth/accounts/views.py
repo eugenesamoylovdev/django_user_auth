@@ -3,31 +3,40 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.views.generic.edit import UpdateView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
+
+from .models import AdvUser
+from .forms import ChangeUserInfoForm
+
 # Login form
 class AccountsLoginView(LoginView):
     template_name = 'accounts/login.html'
 
-# logout form
+# Logout form
 class AccountsLogoutView(LoginRequiredMixin, LogoutView):
     template_name = 'accounts/logout.html'
+
+# Change user data from
+class ChangeUserInfoViews(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = AdvUser
+    template_name = 'accounts/change_user_info.html'
+    form_class = ChangeUserInfoForm
+    success_url = reverse_lazy('accounts:profile')
+    success_message = 'Personal users data is change'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.user_id = request.user.pk
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk=self.user_id)    
 
 # Profile form
 @login_required
 def profile(request):
     return render(request, 'accounts/profile.html')
-
-
-def start(request):
-    
-    context = {'result': ''}
-    return render(request, 'accounts/start.html', context)
-
-def login(request):
-    
-    context = {'result': ''}
-    return render(request, 'accounts/login.html', context)
-
-def recover(request):
-
-    context = {'result': ''}
-    return render(request, 'accounts/recover.html', context)
