@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
 
 from django.views.generic.edit import UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -40,3 +41,10 @@ class ChangeUserInfoViews(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 @login_required
 def profile(request):
     return render(request, 'accounts/profile.html')
+
+class AccountsPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
+    template_name = 'accounts/password_change.html'
+    success_url = reverse_lazy('accounts:profile')
+    success_message = 'Password is changed'
+
+    
