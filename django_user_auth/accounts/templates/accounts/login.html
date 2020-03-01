@@ -9,12 +9,10 @@
   {% else %}
     <h1>Please sign in</h1> <br>
     <form method="POST">
-        {% csrf_token %}
-        
+        {% csrf_token %}       
         {% bootstrap_form form layout='inline'%}
-        <input type="hidden" name="next" value="{{ next }}">
-        {% buttons submit='Sign in' %} {% endbuttons %}
-        
+        <input type="hidden" name="next" value="{{ next }}">     
+        {% buttons submit='Sign in' %} {% endbuttons %}       
     </form>
     
   {% endif %}

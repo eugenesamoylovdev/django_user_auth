@@ -3,14 +3,17 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
-
-from django.views.generic.edit import UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
+
+from django.views.generic.edit import UpdateView, CreateView
+from django.views.generic.base import TemplateView
+
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 
 from .models import AdvUser
-from .forms import ChangeUserInfoForm
+
+from .forms import ChangeUserInfoForm, RegisterUserForm 
 
 # Login form
 class AccountsLoginView(LoginView):
@@ -42,9 +45,20 @@ class ChangeUserInfoViews(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 def profile(request):
     return render(request, 'accounts/profile.html')
 
+# Change user password from
 class AccountsPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
     template_name = 'accounts/password_change.html'
     success_url = reverse_lazy('accounts:profile')
     success_message = 'Password is changed'
+
+# Register 
+class RegisterUserView(CreateView):
+    model = AdvUser
+    template_name = 'accounts/register_user.html'
+    form_class = RegisterUserForm
+    success_url = reverse_lazy('accounts:register_done') 
+
+class RegisterDoneView(TemplateView):
+    template_name = 'accounts/register_done.html'
 
     
