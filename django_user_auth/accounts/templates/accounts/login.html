@@ -10,11 +10,9 @@
     <h1>Please sign in</h1> <br>
     <form method="POST">
         {% csrf_token %}       
-        {% bootstrap_form form layout='inline'%}
-        <input type="hidden" name="next" value="{{ next }}">     
-        {% buttons submit='Sign in' %} {% endbuttons %}       
-    </form>
-    
+        {% bootstrap_form form layout="inline" %}     
+        <button type="submit" class="btn btn-primary elm-single">Sign in</button> 
+        <a href="{% url 'accounts:register' %}" class="elm-single">Create an account</a>       
+    </form>  
   {% endif %}
-
 {% endblock %}

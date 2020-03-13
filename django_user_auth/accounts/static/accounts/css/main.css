@@ -101,13 +101,25 @@ textarea {
  /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-   body{
-       text-align: center;
+   body {
+        text-align: center;
         width: auto;
         max-width: 400px;
         margin-top: 40px;
         padding: 40px;
    }
+
+   h1 {
+       text-align: center;
+   }
+
+   .elm-single {
+        width: 100%;
+        margin-top: 10px;
+        text-align: center;
+        display: block;
+   }
+
  /* ==========================================================================
    Helper classes
    ========================================================================== */

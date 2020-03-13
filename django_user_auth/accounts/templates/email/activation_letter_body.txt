@@ -1,0 +1,4 @@
+Dear user {{ user.username }}
+To complete the activation on the site "Web site name", click on the link
+
+{{ host }}{% url 'accounts:register_activate' sign=sign %}

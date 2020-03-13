@@ -2,10 +2,10 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
-from .models import AdvUser
+from .models import AdvUser, user_registrated
 
 class ChangeUserInfoForm(forms.ModelForm):
-    email = forms.EmailField(required=True, label='Email adress')
+    email = forms.EmailField(required=True, label='Email')
 
     class Meta:
         model = AdvUser
@@ -19,8 +19,8 @@ class RegisterUserForm(forms.ModelForm):
     def clean_password1(self):
         password1 = self.cleaned_data['password1']
         if password1:
-            password_validation.validate_password(password1)
-        return password1
+            # password_validation.validate_password(password1)
+            return password1
 
     def clean(self):
         super().clean()
@@ -32,12 +32,14 @@ class RegisterUserForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password1'])
-        user.is_active = False
+        user.set_password(self.cleaned_data['password1']) 
         user.is_activated = False
+        # If we need to use user_activate - False
+        user.is_active = True
         if commit:
             user.save()
-        # user_registrated.send(RegisterUserForm, isinstance=user)
+        # Check user auth with SMTP, to use it you need to set SMTP values in settings.py 
+        # user_registrated.send(RegisterUserForm, instance=user)
         return user
 
     class Meta:

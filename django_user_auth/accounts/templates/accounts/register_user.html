@@ -6,8 +6,9 @@
     <h1>New user register</h1> <br>
     <form method="POST">
         {% csrf_token %}
-        {% bootstrap_form form layout='horizontal'%}
-        {% buttons submit='Register' %} {% endbuttons %}     
+        {% bootstrap_form form layout="inline" %}
+        <button type="submit" class="btn btn-primary elm-single">Register</button>
+        <a href="{% url 'accounts:login' %}" class="elm-single">Back</a>     
     </form>
 
 {% endblock %}

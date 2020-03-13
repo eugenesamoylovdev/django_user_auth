@@ -4,6 +4,7 @@
 {% block content %}
 
     <h1>User registration completed</h1> <br>
-    <p> Activation email sent to email address</p> <br>
-
+    <!-- <p> Activation email sent to email address</p> <br> -->
+    <p>You are successfully registered, log in to your account</p> <br>
+    <a href="{% url 'accounts:login' %}">Sign in</a>
 {% endblock %}

@@ -123,3 +123,5 @@ STATIC_URL = '/static/'
 
 # Additions
 AUTH_USER_MODEL = 'accounts.AdvUser'
+
+# SMTP
